@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+	<featureModel>
+		<properties/>
+		<struct>
+			<and abstract="true" mandatory="true" name="SmartHomeSimulation">
+				<description>
+					
+				</description>
+				<or abstract="true" mandatory="true" name="Sensors">
+					<description>
+						
+					</description>
+					<feature mandatory="true" name="Rain">
+						<description>
+							
+						</description>
+					</feature>
+					<feature mandatory="true" name="Sun">
+						<description>
+							
+						</description>
+					</feature>
+					<feature mandatory="true" name="TemperatureInside">
+						<description>
+							
+						</description>
+					</feature>
+					<feature mandatory="true" name="TemperatureOutside">
+						<description>
+							
+						</description>
+					</feature>
+				</or>
+				<feature abstract="true" mandatory="true" name="Actors">
+					<description>
+						
+					</description>
+				</feature>
+				<or abstract="true" mandatory="true" name="UserInterface">
+					<description>
+						
+					</description>
+					<or abstract="true" mandatory="true" name="MobileApp">
+						<description>
+							
+						</description>
+						<feature mandatory="true" name="Android">
+							<description>
+								
+							</description>
+						</feature>
+						<feature mandatory="true" name="iOS">
+							<description>
+								
+							</description>
+						</feature>
+						<feature mandatory="true" name="WindowsPhone">
+							<description>
+								
+							</description>
+						</feature>
+					</or>
+					<feature abstract="true" mandatory="true" name="InHouse">
+						<description>
+							
+						</description>
+					</feature>
+				</or>
+			</and>
+		</struct>
+		<constraints/>
+		<calculations Auto="true" Constraints="true" Features="true" Redundant="true" Tautology="true"/>
+		<comments/>
+		<featureOrder userDefined="false"/>
+	</featureModel>
