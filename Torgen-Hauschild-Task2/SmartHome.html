@@ -430,6 +430,7 @@
     }
 
     var firstRendered = false;
+    const refreshInterval = 200;
     function restRequest(){
       var xhr = createCORSRequest('GET', getJsonUrl);
       if (!xhr) {
@@ -550,10 +551,10 @@
           else{
             setStatusWheater(false);
           }
-          window.setTimeout(restRequest, 100);
+          window.setTimeout(restRequest, refreshInterval);
         }
         catch (e) {
-          window.setTimeout(restRequest, 100);
+          window.setTimeout(restRequest, refreshInterval);
         }
       };
       xhr.send();
@@ -599,7 +600,7 @@
     function postJson(postfix, jsonData){
       $.postJSON(postJsonUrl + "/" + postfix,jsonData, function()
       {
-        //alert(jsonData);
+        
       });
     }
 
