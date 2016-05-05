@@ -1,5 +1,8 @@
 package de.torgen.smarthome;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
@@ -9,11 +12,13 @@ import javax.servlet.FilterRegistration;
 
 import org.eclipse.jetty.servlets.CrossOriginFilter;
 
+import de.torgen.smarthome.Light.State;
 import properties.PropertyManager;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Environment;
 
 public class SmartHomeSimulation extends Application<SmartHomeConfiguration>{
+	private static String HTML_PATH = "SmartHome.html";
 	private Light lightIndoor, lightOutdoor;
 	private Heating heating;
 	private AirConditioning airConditioning;
@@ -101,7 +106,25 @@ public class SmartHomeSimulation extends Application<SmartHomeConfiguration>{
 		
 	    final SmartHomeRessource resource = new SmartHomeRessource(new SmartHomeState(aktiveFeatures, lightIndoor, lightOutdoor, heating, 0, 0, airConditioning, false, 0, shutter, window));
 	        environment.jersey().register(resource);
-		
+		Thread openHtml = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				File htmlFile = new File(HTML_PATH);
+		        try {
+					Desktop.getDesktop().browse(htmlFile.toURI());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		openHtml.start();
 	}
 
 }

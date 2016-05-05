@@ -439,117 +439,122 @@
         window.setTimeout(restRequest, 1000);
       };
       xhr.onload = function() {
-        var wheater = "";
-        var showWheater = false;
-        var responseText = xhr.responseText;
-        var responseObject = JSON.parse(responseText);
-        var aktiveFeatures = responseObject.aktiveFeatures;
-        if(aktiveFeatures.indexOf("rain") != -1){
-          setStatusRainSensor(true);
-          showWheater = true;
-          if(responseObject.rain == true){
-            wheater = "Rain" + wheater;
-          }
-        }
-        else{
-          setStatusRainSensor(false);
-        }
-        if(aktiveFeatures.indexOf("lightIn") != -1){
-          setStatusLightIn(true);
-          if(responseObject.lightIndoor.state == "ON"){
-            setLightInside(true);
+        try{
+          var wheater = "";
+          var showWheater = false;
+          var responseText = xhr.responseText;
+          var responseObject = JSON.parse(responseText);
+          var aktiveFeatures = responseObject.aktiveFeatures;
+          if(aktiveFeatures.indexOf("rain") != -1){
+            setStatusRainSensor(true);
+            showWheater = true;
+            if(responseObject.rain == true){
+              wheater = "Rain" + wheater;
+            }
           }
           else{
-            setLightInside(false);
+            setStatusRainSensor(false);
           }
-        }
-        else{
-          setStatusLightIn(false);
-        }
-        if(aktiveFeatures.indexOf("lightOut") != -1){
-          setStatusLightOut(true);
-          if(responseObject.lightOutdoor.state == "ON"){
-            setLightOutside(true);
+          if(aktiveFeatures.indexOf("lightIn") != -1){
+            setStatusLightIn(true);
+            if(responseObject.lightIndoor.state == "ON"){
+              setLightInside(true);
+            }
+            else{
+              setLightInside(false);
+            }
           }
           else{
-            setLightOutside(false);
+            setStatusLightIn(false);
           }
-        }
-        else{
-          setStatusLightOut(false);
-        }
-        if(aktiveFeatures.indexOf("motionIn") != -1){
-          setStatusMotionIn(true);
-        }
-        else{
-          setStatusMotionIn(false);
-        }
-        if(aktiveFeatures.indexOf("motionOut") != -1){
-          setStatusMotionOut(true);
-        }
-        else{
-          setStatusMotionOut(false);
-        }
-        if(aktiveFeatures.indexOf("heating") != -1){
-          setStatusHeating(true);
-          setHeating(responseObject.heating.heatingPercentage);
-        }
-        else{
-          setStatusHeating(false);
-        }
-        if(aktiveFeatures.indexOf("airConditioning") != -1){
-          setStatusAirCondition(true);
-          setAircondition(responseObject.airConditioning.coolingPercentage);
-        }
-        else{
-          setStatusAirCondition(false);
-        }
-        if(aktiveFeatures.indexOf("tempIn") != -1){
-          setStatusTmpIn(true);
-          setTempIn(responseObject.tempIn);
-        }
-        else{
-          setStatusTmpIn(false);
-        }
-        if(aktiveFeatures.indexOf("tempOut") != -1){
-          setStatusTmpOut(true);
-          setTempOut(responseObject.tempOut);
-        }
-        else{
-          setStatusTmpOut(false);
-        }
-        if(aktiveFeatures.indexOf("sun") != -1){
-          setStatusSunSensor(true);
-          showWheater = true;
-          if(responseObject.sun > 50){
-            wheater = wheater + " Sunny";
+          if(aktiveFeatures.indexOf("lightOut") != -1){
+            setStatusLightOut(true);
+            if(responseObject.lightOutdoor.state == "ON"){
+              setLightOutside(true);
+            }
+            else{
+              setLightOutside(false);
+            }
           }
+          else{
+            setStatusLightOut(false);
+          }
+          if(aktiveFeatures.indexOf("motionIn") != -1){
+            setStatusMotionIn(true);
+          }
+          else{
+            setStatusMotionIn(false);
+          }
+          if(aktiveFeatures.indexOf("motionOut") != -1){
+            setStatusMotionOut(true);
+          }
+          else{
+            setStatusMotionOut(false);
+          }
+          if(aktiveFeatures.indexOf("heating") != -1){
+            setStatusHeating(true);
+            setHeating(responseObject.heating.heatingPercentage);
+          }
+          else{
+            setStatusHeating(false);
+          }
+          if(aktiveFeatures.indexOf("airConditioning") != -1){
+            setStatusAirCondition(true);
+            setAircondition(responseObject.airConditioning.coolingPercentage);
+          }
+          else{
+            setStatusAirCondition(false);
+          }
+          if(aktiveFeatures.indexOf("tempIn") != -1){
+            setStatusTmpIn(true);
+            setTempIn(responseObject.tempIn);
+          }
+          else{
+            setStatusTmpIn(false);
+          }
+          if(aktiveFeatures.indexOf("tempOut") != -1){
+            setStatusTmpOut(true);
+            setTempOut(responseObject.tempOut);
+          }
+          else{
+            setStatusTmpOut(false);
+          }
+          if(aktiveFeatures.indexOf("sun") != -1){
+            setStatusSunSensor(true);
+            showWheater = true;
+            if(responseObject.sun > 50){
+              wheater = wheater + " Sunny";
+            }
+          }
+          else{
+            setStatusSunSensor(false);
+          }
+          if(aktiveFeatures.indexOf("shutter") != -1){
+            setStatusShutter(true);
+            setShutter(responseObject.shutter.shutterPercentage);
+          }
+          else{
+            setStatusShutter(false);
+          }
+          if(aktiveFeatures.indexOf("window") != -1){
+            setStatusWindow(true);
+            setWindowOpened(responseObject.window.windowOpened);
+          }
+          else{
+            setStatusWindow(false);
+          }
+          if(showWheater){
+            setStatusWheater(true);
+            setWheater(wheater);
+          }
+          else{
+            setStatusWheater(false);
+          }
+          window.setTimeout(restRequest, 100);
         }
-        else{
-          setStatusSunSensor(false);
+        catch (e) {
+          window.setTimeout(restRequest, 100);
         }
-        if(aktiveFeatures.indexOf("shutter") != -1){
-          setStatusShutter(true);
-          setShutter(responseObject.shutter.shutterPercentage);
-        }
-        else{
-          setStatusShutter(false);
-        }
-        if(aktiveFeatures.indexOf("window") != -1){
-          setStatusWindow(true);
-          setWindowOpened(responseObject.window.windowOpened);
-        }
-        else{
-          setStatusWindow(false);
-        }
-        if(showWheater){
-          setStatusWheater(true);
-          setWheater(wheater);
-        }
-        else{
-          setStatusWheater(false);
-        }
-        window.setTimeout(restRequest, 100);
       };
       xhr.send();
     }
@@ -599,11 +604,16 @@
     }
 
     // set initial values
-    postJson("tempIn",document.getElementById("tempSensorRangeInside").value);
-    postJson("tempOut",document.getElementById("tempSensorRangeOutside").value);
-    postJson("desiredTempIn",document.getElementById("desiredTempIn").value);
-    postJson("rain",document.getElementById("rainSensorCheckboxOutside").checked.toString());
-    postJson("sun",document.getElementById("sunSensorRangeOutside").value);
+    try{
+      postJson("tempIn",document.getElementById("tempSensorRangeInside").value);
+      postJson("tempOut",document.getElementById("tempSensorRangeOutside").value);
+      postJson("desiredTempIn",document.getElementById("desiredTempIn").value);
+      postJson("rain",document.getElementById("rainSensorCheckboxOutside").checked.toString());
+      postJson("sun",document.getElementById("sunSensorRangeOutside").value);
+    }
+    catch (e) {
+      null;
+    }
     </script>
   </body>
 </html>
