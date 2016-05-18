@@ -36,10 +36,10 @@ public class SmartHomeSimulation extends Application<SmartHomeConfiguration>{
 		this.window = new Window();
 		this.aktiveFeatures = new ArrayList<String>();
 		//#if Rain
-		this.aktiveFeatures.add("rain");
+//@		this.aktiveFeatures.add("rain");
 		//#endif
 		//#if Sun
-//@		this.aktiveFeatures.add("sun");
+		this.aktiveFeatures.add("sun");
 		//#endif
 		//#if TemperaturInside
 //@		this.aktiveFeatures.add("tempIn");
@@ -60,10 +60,10 @@ public class SmartHomeSimulation extends Application<SmartHomeConfiguration>{
 //@		this.aktiveFeatures.add("lightOut");
 		//#endif
 		//#if RollerShutter
-//@		this.aktiveFeatures.add("shutter");
+		this.aktiveFeatures.add("shutter");
 		//#endif
 		//#if WindowOpener
-		this.aktiveFeatures.add("window");
+//@		this.aktiveFeatures.add("window");
 		//#endif
 		//#if Heater
 //@		this.aktiveFeatures.add("heating");
@@ -123,16 +123,16 @@ public class SmartHomeSimulation extends Application<SmartHomeConfiguration>{
 //@	    		,airConditioning
 	    		//#endif
 	    		//#if Rain
-	    		,false
+//@	    		,false
 	    		//#endif
 	    		//#if Sun
-//@	    		,0
+	    		,0
 	    		//#endif
 	    		//#if RollerShutter
-//@	    		,shutter
+	    		,shutter
 	    		//#endif
 	    		//#if WindowOpener
-	    		,window
+//@	    		,window
 	    		//#endif
 	    		));
 	        environment.jersey().register(resource);

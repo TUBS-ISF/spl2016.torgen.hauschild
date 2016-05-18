@@ -1,7 +1,9 @@
 package de.torgen.smarthome;
 
 public class Light {
-	private final int MOTION_TIMER = 20; // timer in milli seconds
+	//#if MotionInside
+//@	private final int MOTION_TIMER = 20; // timer in milli seconds
+	//#endif
 	
 	enum State{ON,OFF};
 	private State state;
@@ -42,7 +44,10 @@ public class Light {
 	public void setState(State state) {
 		this.state = state;
 	}
-	public void onMotionDetected(){
-		timer = MOTION_TIMER;
-	}
+	
+	//#if MotionInside
+//@	public void onMotionDetected(){
+//@		timer = MOTION_TIMER;
+//@	}
+	//#endif
 }

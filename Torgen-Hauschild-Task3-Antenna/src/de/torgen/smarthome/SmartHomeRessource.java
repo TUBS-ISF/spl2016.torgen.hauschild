@@ -69,7 +69,9 @@ public class SmartHomeRessource {
 //@		e.getAirConditioning().setMeasuredTemp(measuredTemp);
 		//#endif
 		//#if WindowOpener
-		e.getWindow().setTempIn(measuredTemp);
+		//#if TemperaturInside
+//@		e.getWindow().setTempIn(measuredTemp);
+		//#endif
 		//#endif
 	}
 	
@@ -82,7 +84,9 @@ public class SmartHomeRessource {
 //@		e.setTempOut(measuredTemp);
 		//#endif
 		//#if WindowOpener
-		e.getWindow().setTempOut(measuredTemp);
+		//#if TemperatureOutside
+//@		e.getWindow().setTempOut(measuredTemp);
+		//#endif
 		//#endif
 	}
 	
@@ -98,7 +102,7 @@ public class SmartHomeRessource {
 //@		e.getAirConditioning().setDesiredTemp(desiredTemp);
 		//#endif
 		//#if WindowOpener
-		e.getWindow().setDesiredTempIn(desiredTemp);
+//@		e.getWindow().setDesiredTempIn(desiredTemp);
 		//#endif
 	}
 	
@@ -108,10 +112,12 @@ public class SmartHomeRessource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public void rain(String status) {
 		//#if Rain
-		e.setRain(Boolean.valueOf(status));
+//@		e.setRain(Boolean.valueOf(status));
 		//#endif
 		//#if WindowOpener
-		e.getWindow().setRain(e.getRain());
+		//#if Rain
+//@		e.getWindow().setRain(e.getRain());
+		//#endif
 		//#endif
 	}
 	
@@ -121,10 +127,10 @@ public class SmartHomeRessource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public void sun(Integer sun) {
 		//#if Sun
-//@		e.setSun(sun);
+		e.setSun(sun);
 		//#endif
 		//#if RollerShutter
-//@		e.getShutter().setSun(sun);
+		e.getShutter().setSun(sun);
 		//#endif
 	}
 }

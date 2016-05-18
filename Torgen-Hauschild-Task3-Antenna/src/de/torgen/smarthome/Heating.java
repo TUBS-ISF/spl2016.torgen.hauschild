@@ -1,7 +1,10 @@
 package de.torgen.smarthome;
 
 public class Heating {
-	private Integer desiredTemp,measuredTemp,heatingPercentage;
+	//#if TemperaturInside
+//@	private Integer measuredTemp;
+	//#endif
+	private Integer desiredTemp,heatingPercentage;
 
 	public Heating() {
 		super();
@@ -17,35 +20,39 @@ public class Heating {
 		calculateHeating();
 	}
 
-	public Integer getMeasuredTemp() {
-		return measuredTemp;
-	}
-
-	public void setMeasuredTemp(Integer measuredTemp) {
-		this.measuredTemp = measuredTemp;
-		calculateHeating();
-	}
+	//#if TemperaturInside
+//@	public Integer getMeasuredTemp() {
+//@		return measuredTemp;
+//@	}
+//@
+//@	public void setMeasuredTemp(Integer measuredTemp) {
+//@		this.measuredTemp = measuredTemp;
+//@		calculateHeating();
+//@	}
+	//#endif
 
 	public Integer getHeatingPercentage() {
 		return heatingPercentage;
 	}
 	
 	private void calculateHeating(){
-		if(measuredTemp != null && desiredTemp != null){
-			int diff = measuredTemp - desiredTemp;
-			if(diff < 0){
-				diff = -diff*10;
-				if(diff > 100){
-					diff = 100;
-				}
-				heatingPercentage = diff;
-			}
-			else{
-				heatingPercentage = 0;
-			}
-		}
-		else if(desiredTemp != null){
-			heatingPercentage = desiredTemp;
-		}
+		//#if TemperaturInside
+//@		if(measuredTemp != null && desiredTemp != null){
+//@			int diff = measuredTemp - desiredTemp;
+//@			if(diff < 0){
+//@				diff = -diff*10;
+//@				if(diff > 100){
+//@					diff = 100;
+//@				}
+//@				heatingPercentage = diff;
+//@			}
+//@			else{
+//@				heatingPercentage = 0;
+//@			}
+//@			return;
+//@		}
+		//#endif
+		heatingPercentage = desiredTemp;
+		
 	}
 }

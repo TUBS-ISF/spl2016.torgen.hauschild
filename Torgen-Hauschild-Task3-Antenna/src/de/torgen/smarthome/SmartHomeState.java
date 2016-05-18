@@ -24,16 +24,16 @@ public class SmartHomeState {
 //@	private AirConditioning airConditioning;
 	//#endif
 	//#if Rain
-	private Boolean rain;
+//@	private Boolean rain;
 	//#endif
 	//#if Sun
-//@	private Integer sun;
+	private Integer sun;
 	//#endif
 	//#if RollerShutter
-//@	private Shutter shutter;
+	private Shutter shutter;
 	//#endif
 	//#if WindowOpener
-	private Window window;
+//@	private Window window;
 	//#endif
 	
 	private List<String> aktiveFeatures;
@@ -58,16 +58,16 @@ public class SmartHomeState {
 //@			, AirConditioning airConditioning
 			//#endif
 			//#if Rain
-			, Boolean rain
+//@			, Boolean rain
 			//#endif
 			//#if Sun
-//@			, Integer sun
+			, Integer sun
 			//#endif
 			//#if RollerShutter
-//@			, Shutter shutter
+			, Shutter shutter
 			//#endif
 			//#if WindowOpener
-			, Window window
+//@			, Window window
 			//#endif
 			) {
 		super();
@@ -91,16 +91,16 @@ public class SmartHomeState {
 //@		this.airConditioning = airConditioning;
 		//#endif
 		//#if Rain
-		this.rain = rain;
+//@		this.rain = rain;
 		//#endif
 		//#if Sun
-//@		this.sun = sun;
+		this.sun = sun;
 		//#endif
 		//#if RollerShutter
-//@		this.shutter = shutter;
+		this.shutter = shutter;
 		//#endif
 		//#if WindowOpener
-		this.window = window;
+//@		this.window = window;
 		//#endif	
 	}
 	
@@ -161,40 +161,40 @@ public class SmartHomeState {
 //@	}
 	//#endif
 	//#if Rain
-	public Boolean getRain() {
-		return rain;
-	}
-
-	public void setRain(Boolean rain) {
-		this.rain = rain;
-	}
+//@	public Boolean getRain() {
+//@		return rain;
+//@	}
+//@
+//@	public void setRain(Boolean rain) {
+//@		this.rain = rain;
+//@	}
 	//#endif
 	//#if Sun
-//@	public Integer getSun() {
-//@		return sun;
-//@	}
-//@
-//@	public void setSun(Integer sun) {
-//@		this.sun = sun;
-//@	}
-	//#endif
-	//#if RollerShutter
-//@	public Shutter getShutter() {
-//@		return shutter;
-//@	}
-//@
-//@	public void setShutter(Shutter shutter) {
-//@		this.shutter = shutter;
-//@	}
-	//#endif
-	//#if WindowOpener
-	public Window getWindow() {
-		return window;
+	public Integer getSun() {
+		return sun;
 	}
 
-	public void setWindow(Window window) {
-		this.window = window;
+	public void setSun(Integer sun) {
+		this.sun = sun;
 	}
+	//#endif
+	//#if RollerShutter
+	public Shutter getShutter() {
+		return shutter;
+	}
+
+	public void setShutter(Shutter shutter) {
+		this.shutter = shutter;
+	}
+	//#endif
+	//#if WindowOpener
+//@	public Window getWindow() {
+//@		return window;
+//@	}
+//@
+//@	public void setWindow(Window window) {
+//@		this.window = window;
+//@	}
 	//#endif
 
 
