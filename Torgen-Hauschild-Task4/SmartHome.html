@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>Superfahrstuhl</title>
+
+    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script> 
+
+    <style>
+
+      #head{
+        height: 80px;
+        font-size: 20px;
+        text-align: center;
+        font-family: “Century Gothic”, CenturyGothic, AppleGothic, sans-serif;
+      }
+
+      #home{
+        height: 50%;
+        width: 50%; 
+        background-color: grey; 
+        float: right;
+        width: 65%;
+        height: 100%;
+        border-style: solid;
+        border-width: 4px 4px 4px 4px;
+        border-color: darkgrey;
+      }
+
+      .button{
+        border-style: solid;
+        border-width: 1px 1px 1px 1px;
+        border-color: darkgrey;
+        background-color: darkgrey;
+        text-align: center;
+        color: white;
+        padding:0.5em;
+      }
+
+      .box{
+        background-color: lightgrey;
+        border-style: solid;
+        border-width: 1px 1px 1px 1px;
+        border-color: darkgrey;
+        font-family: “Century Gothic”, CenturyGothic, AppleGothic, sans-serif;
+        font-style: bold;
+        float: left;
+        width: 28%;
+      }
+
+      .sensor{
+        border-style: solid;
+        border-width: 1px 1px 1px 1px;
+        border-color: darkgrey;
+        background-color: darkgrey;
+        text-align: left;
+        color: white;
+        padding:0.5em;
+        margin: 5px;
+      }
+
+      .actor{
+        border-style: solid;
+        border-width: 4px 4px 4px 4px;
+        border-color: black;
+        background-color: #444444;
+        text-align: left;
+        color: white;
+        padding:0.5em;
+        margin: 5px;
+      }
+
+      table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        padding: 2px;
+        background-color: white;
+        text-align: center;
+      }
+
+    </style>
+
+  </head>
+
+  <body>  
+    <div id="head">
+      <h1>Super Smart Home</h1>
+    </div>
+    <div>
+      <div id="sensorsOutside" class="box" style="padding: 5px;">
+        Sensors Outside
+        <div id="rainSensorOutside" class="sensor" style="background-color:darkblue;">
+          Rain
+          <input type="checkbox" id="rainSensorCheckboxOutside" class="switch" id="cb" style="float:right;" onchange="onRainingChange(this.checked);">
+        </div>
+        <div id="sunSensorOutside" class="sensor" style="background-color:#ff9933;">
+          Sun
+          <input type="range" id="sunSensorRangeOutside" value="50" style="float:right;" onchange="onSunChange(this.value);">
+        </div>
+        <div id="tempSensorOutside" class="sensor" style="background-color:darkgreen;">
+          Temp
+          <input type="range" id="tempSensorRangeOutside" value="25" max="50" style="float:right;" onchange="onTempOutChange(this.value);">
+        </div>
+        <div id="motionSensorOutside" class="sensor" style="background-color:darkred;">
+          Motion
+          <button type="button" id="motionSensorOutside" style="float:right;" onclick="onMotionOut();">Move</button>
+        </div>
+        <!--<div id="lightOutside" class="actor" style="background-color:#ff9933; border-radius:8px;">
+          Light
+        </div>-->
+      </div>
+    </div>
+    <div id="home">
+      <div id="sensorsInside" class="box" style="margin: 5px; padding: 5px;">
+        Sensors Inside
+        <div id="tempSensorInside" class="sensor" style="background-color:darkgreen;">
+          Temp
+          <input type="range" id="tempSensorRangeInside" value="25" max="50" style="float:right;" onchange="onTempInChange(this.value);">
+        </div>
+        <div id="motionSensorInside" class="sensor" style="background-color:darkred;">
+          Motion
+          <button type="button" id="motionSensorInside" style="float:right;" onclick="onMotionIn();">Move</button>
+        </div>
+      </div>
+      <div class="box" style="float:left; margin: 5px; padding: 5px;">
+        Actors
+        <div id="heating" class="actor" style="background-color: lightgrey; color: black; position:relative;">
+          Heating
+          <div id="heatingFilling" style="position: absolute; width: 50%; left:0px; top:0px; height: 100%; background-color:yellow; opacity: 0.4; -webkit-transition: width 1s ease-in-out;"></div>
+          <div id="heatingText" style="float:right;">50%</div>
+        </div>
+        <div id="airCondition" class="actor" style="background-color: lightgrey; color: black; position:relative;">
+          AirCondition
+          <div id="airConditionFilling" style="position: absolute; width: 50%; left:0px; top:0px; height: 100%; background-color:blue; opacity: 0.4; -webkit-transition: width 1s ease-in-out;"></div>
+          <div id="airConditionText" style="float:right;">50%</div>
+        </div>
+        <div id="shutter" class="actor" style="background-color: lightgrey; color: black; position:relative;">
+          Roller Shutter
+          <div id="shutterFilling" style="position: absolute; width: 50%; left:0px; top:0px; height: 100%; background-color:black; opacity: 0.3; -webkit-transition: width 1s ease-in-out;"></div>
+          <div id="shutterText" style="float:right;">50%</div>
+        </div>
+        <div id="window" class="actor" style="background-color: lightblue; color: black; position:relative;">
+          Window
+          <div id="windowFilling" style="position: absolute; width: 50%; left:0px; top:0px; height: 100%; background-color:white; opacity: 0.4; -webkit-transition: width 1s ease-in-out;"></div>
+          <div id="windowText" style="float:right;">Open</div>
+        </div>
+      </div>
+      <div class="box" style="float:right; margin: 5px; padding: 5px;">
+        Display
+        <table style="width:95%; border-style: solid; border-width: 1px 1px 1px 1px; border-color: black; margin: 5px;">
+          <tr id="displayContainerWheater">
+            <td>Wheater</td>
+            <td id="displayWheater">Rain</td> 
+          </tr>
+          <tr id="displayContainerTmpOut">
+            <td>Temp Out</td>
+            <td id="displayTmpOut">20°</td> 
+          </tr>
+          <tr id="displayContainerTmpIn">
+            <td>Is Temp In</td>
+            <td id="displayTmpIn">20°</td> 
+          </tr>
+          <tr id="displayContainerSetTmpIn">
+            <td>Set Temp In</td>
+            <td id="displaySetTmpIn"><input id="desiredTempIn" type="number" name="quantity" min="5" max="50" style="font-size: 18px;" value="25" onchange="onDiredTempInChange(this.value);"></td> 
+          </tr>
+          <tr id="displayContainerHeating">
+            <td>Heating</td>
+            <td id="displayHeating">50%</td> 
+          </tr>
+          <tr id="displayContainerAirCondition">
+            <td>Aircond.</td>
+            <td id="displayAirCondition">50%</td> 
+          </tr>
+          <tr id="displayContainerWindow">
+            <td>Window</td>
+            <td id="displayWindow">Opened</td> 
+          </tr>
+          <tr id="displayContainerShutter">
+            <td>Shutter</td>
+            <td id="displayShutter">50%</td> 
+          </tr>
+          <tr id="displayContainerLightIn">
+            <td>Light In</td>
+            <td id="displayLightIn">Off</td> 
+          </tr>
+          <tr id="displayContainerLightOut">
+            <td>Light Out</td>
+            <td id="displayLightOut">Off</td> 
+          </tr>
+        </table>
+      </div>
+    </div>
+    
+    <script type="text/javascript">
+    var minFloor = 0;
+    var maxFloor = 0;
+    var maxHeight = 0;
+    var jobs = null;
+    var floor = 0;
+    var position = 0;
+    var running = false;
+    var numberOfFloors = 0;
+    var frontDoor;
+    var backDoor;
+    const host = "localhost";
+    const getJsonUrl = 'http://'+host+':8080/home';
+    const postJsonUrl = 'http://'+host+':8080/home';
+
+    // ui functions
+    function setLightInside(value){
+      if(value){
+        document.getElementById("home").style.backgroundColor = "#ff9933";
+        document.getElementById("displayLightIn").innerHTML = "On";
+      }
+      else{
+        document.getElementById("home").style.backgroundColor = "grey";
+        document.getElementById("displayLightIn").innerHTML = "Off";
+      }
+    }
+    function setLightOutside(value){
+      if(value){
+        document.body.style.backgroundColor = "#ff9933";
+        document.getElementById("displayLightOut").innerHTML = "On";
+      }
+      else{
+        document.body.style.backgroundColor = "white";
+        document.getElementById("displayLightOut").innerHTML = "Off";
+      }
+    }
+    function setHeating(percentage){
+      document.getElementById("heatingFilling").style.width = percentage + "%";
+      document.getElementById("heatingText").innerHTML = percentage + "%";
+      document.getElementById("displayHeating").innerHTML = percentage + "%";
+    }
+    function setShutter(percentage){
+      document.getElementById("shutterFilling").style.width = percentage + "%";
+      document.getElementById("shutterText").innerHTML = percentage + "%";
+      document.getElementById("displayShutter").innerHTML = percentage + "%";
+    }
+    function setWindowOpened(value){
+      if(value == false){
+        document.getElementById("windowText").innerHTML = "Closed";
+        document.getElementById("displayWindow").innerHTML = "Closed";
+        document.getElementById("windowFilling").style.width = "100%";
+      }
+      else{
+        document.getElementById("windowText").innerHTML = "Open";
+        document.getElementById("displayWindow").innerHTML = "Opened";
+        document.getElementById("windowFilling").style.width = "0%";
+      }
+    }
+    function setTempOut(temperature){
+      document.getElementById("displayTmpOut").innerHTML = temperature + "°";
+    }
+    function setTempIn(temperature){
+      document.getElementById("displayTmpIn").innerHTML = temperature + "°";
+    }
+    function setAircondition(percentage){
+      document.getElementById("airConditionFilling").style.width = percentage + "%";
+      document.getElementById("airConditionText").innerHTML = percentage + "%";
+      document.getElementById("displayAirCondition").innerHTML = percentage + "%";
+    }
+    function setWheater(text){
+      document.getElementById("displayWheater").innerHTML = text;
+    }
+    function onRainingChange(rainStatus){
+      postJson("rain",rainStatus.toString());
+    }
+    function onSunChange(percentage){
+      postJson("sun",percentage);
+    }
+    function onTempOutChange(percentage){
+      postJson("tempOut",percentage);
+    }
+    function onMotionOut(){
+      postJson("motionOut",null);
+    }
+    function onTempInChange(percentage){
+      postJson("tempIn",percentage);
+    }
+    function onMotionIn(){
+      postJson("motionIn",null);
+    }
+    function onDiredTempInChange(tmp){
+      postJson("desiredTempIn",tmp);
+    }
+    var lighInside = true;
+    function setStatusLightIn(show){
+      if(show){
+        lighInside = true;
+        document.getElementById("displayContainerLightIn").style.display = "";
+      }
+      else{
+        lighInside = false;
+        document.getElementById("displayContainerLightIn").style.display = "none";
+      }
+    }
+    var lighOut = true;
+    function setStatusLightOut(show){
+      if(show){
+        lighOut = true;
+        document.getElementById("displayContainerLightOut").style.display = "";
+      }
+      else{
+        lighInside = false;
+        document.getElementById("displayContainerLightOut").style.display = "none";
+      }
+    }
+    function setStatusHeating (show) {
+      if(show){
+        document.getElementById("heating").style.display = "";
+        document.getElementById("displayContainerHeating").style.display = "";
+      }
+      else{
+        document.getElementById("heating").style.display = "none";
+        document.getElementById("displayContainerHeating").style.display = "none";
+      }
+    }
+    function setStatusShutter (show) {
+      if(show){
+        document.getElementById("shutter").style.display = "";
+        document.getElementById("displayContainerShutter").style.display = "";
+      }
+      else{
+        document.getElementById("shutter").style.display = "none";
+        document.getElementById("displayContainerShutter").style.display = "none";
+      }
+    }
+    function setStatusWindow (show) {
+      if(show){
+        document.getElementById("window").style.display = "";
+        document.getElementById("displayContainerWindow").style.display = "";
+      }
+      else{
+        document.getElementById("window").style.display = "none";
+        document.getElementById("displayContainerWindow").style.display = "none";
+      }
+    }
+    function setStatusTmpOut (show) {
+      if(show){
+        document.getElementById("tempSensorOutside").style.display = "";
+        document.getElementById("displayContainerTmpOut").style.display = "";
+      }
+      else{
+        document.getElementById("tempSensorOutside").style.display = "none";
+        document.getElementById("displayContainerTmpOut").style.display = "none";
+      }
+    }
+    function setStatusTmpIn (show) {
+      if(show){
+        document.getElementById("tempSensorInside").style.display = "";
+        document.getElementById("displayContainerTmpIn").style.display = "";
+        document.getElementById("displayContainerSetTmpIn").style.display = "";
+      }
+      else{
+        document.getElementById("tempSensorInside").style.display = "none";
+        document.getElementById("displayContainerTmpIn").style.display = "none";
+        document.getElementById("displayContainerSetTmpIn").style.display = "none";
+      }
+    }
+    function setStatusAirCondition (show) {
+      if(show){
+        document.getElementById("airCondition").style.display = "";
+        document.getElementById("displayContainerAirCondition").style.display = "";
+      }
+      else{
+        document.getElementById("airCondition").style.display = "none";
+        document.getElementById("displayContainerAirCondition").style.display = "none";
+      }
+    }
+    function setStatusMotionIn (show) {
+      if(show){
+        document.getElementById("motionSensorInside").style.display = "";
+      }
+      else{
+        document.getElementById("motionSensorInside").style.display = "none";
+      }
+    }
+    function setStatusMotionOut (show) {
+      if(show){
+        document.getElementById("motionSensorOutside").style.display = "";
+      }
+      else{
+        document.getElementById("motionSensorOutside").style.display = "none";
+      }
+    }
+    function setStatusRainSensor (show) {
+      if(show){
+        document.getElementById("rainSensorOutside").style.display = "";
+      }
+      else{
+        document.getElementById("rainSensorOutside").style.display = "none";
+      }
+    }
+    function setStatusSunSensor (show) {
+      if(show){
+        document.getElementById("sunSensorOutside").style.display = "";
+      }
+      else{
+        document.getElementById("sunSensorOutside").style.display = "none";
+      }
+    }
+    function setStatusWheater (show) {
+      if(show){
+        document.getElementById("displayContainerWheater").style.display = "";
+      }
+      else{
+        document.getElementById("displayContainerWheater").style.display = "none";
+      }
+    }
+
+    // rest funtions
+    function createCORSRequest(method, url) {
+      var xhr = new XMLHttpRequest();
+      if ("withCredentials" in xhr) {
+        // XHR for Chrome/Firefox/Opera/Safari.
+        xhr.open(method, url, true);
+      } else if (typeof XDomainRequest != "undefined") {
+        // XDomainRequest for IE.
+        xhr = new XDomainRequest();
+        xhr.open(method, url);
+      } else {
+        // CORS not supported.
+        xhr = null;
+      }
+      xhr.setRequestHeader('Content-Type', 'text/plain');
+      return xhr;
+    }
+
+    var firstRendered = false;
+    const refreshInterval = 200;
+    function restRequest(){
+      var xhr = createCORSRequest('GET', getJsonUrl);
+      if (!xhr) {
+        throw new Error('CORS not supported');
+      }
+      xhr.onerror = function() {
+        window.setTimeout(restRequest, 1000);
+      };
+      xhr.onload = function() {
+        try{
+          var wheater = "";
+          var showWheater = false;
+          var responseText = xhr.responseText;
+          var responseObject = JSON.parse(responseText);
+          var aktiveFeatures = responseObject.aktiveFeatures;
+          if(aktiveFeatures.indexOf("rain") != -1){
+            setStatusRainSensor(true);
+            showWheater = true;
+            if(responseObject.rain == true){
+              wheater = "Rain" + wheater;
+            }
+          }
+          else{
+            setStatusRainSensor(false);
+          }
+          if(aktiveFeatures.indexOf("lightIn") != -1){
+            setStatusLightIn(true);
+            if(responseObject.lightIndoor.state == "ON"){
+              setLightInside(true);
+            }
+            else{
+              setLightInside(false);
+            }
+          }
+          else{
+            setStatusLightIn(false);
+          }
+          if(aktiveFeatures.indexOf("lightOut") != -1){
+            setStatusLightOut(true);
+            if(responseObject.lightOutdoor.state == "ON"){
+              setLightOutside(true);
+            }
+            else{
+              setLightOutside(false);
+            }
+          }
+          else{
+            setStatusLightOut(false);
+          }
+          if(aktiveFeatures.indexOf("motionIn") != -1){
+            setStatusMotionIn(true);
+          }
+          else{
+            setStatusMotionIn(false);
+          }
+          if(aktiveFeatures.indexOf("motionOut") != -1){
+            setStatusMotionOut(true);
+          }
+          else{
+            setStatusMotionOut(false);
+          }
+          if(aktiveFeatures.indexOf("heating") != -1){
+            setStatusHeating(true);
+            setHeating(responseObject.heating.heatingPercentage);
+          }
+          else{
+            setStatusHeating(false);
+          }
+          if(aktiveFeatures.indexOf("airConditioning") != -1){
+            setStatusAirCondition(true);
+            setAircondition(responseObject.airConditioning.coolingPercentage);
+          }
+          else{
+            setStatusAirCondition(false);
+          }
+          if(aktiveFeatures.indexOf("tempIn") != -1){
+            setStatusTmpIn(true);
+            setTempIn(responseObject.tempIn);
+          }
+          else{
+            setStatusTmpIn(false);
+          }
+          if(aktiveFeatures.indexOf("tempOut") != -1){
+            setStatusTmpOut(true);
+            setTempOut(responseObject.tempOut);
+          }
+          else{
+            setStatusTmpOut(false);
+          }
+          if(aktiveFeatures.indexOf("sun") != -1){
+            setStatusSunSensor(true);
+            showWheater = true;
+            if(responseObject.sun > 50){
+              wheater = wheater + " Sunny";
+            }
+          }
+          else{
+            setStatusSunSensor(false);
+          }
+          if(aktiveFeatures.indexOf("shutter") != -1){
+            setStatusShutter(true);
+            setShutter(responseObject.shutter.shutterPercentage);
+          }
+          else{
+            setStatusShutter(false);
+          }
+          if(aktiveFeatures.indexOf("window") != -1){
+            setStatusWindow(true);
+            setWindowOpened(responseObject.window.windowOpened);
+          }
+          else{
+            setStatusWindow(false);
+          }
+          if(showWheater){
+            setStatusWheater(true);
+            setWheater(wheater);
+          }
+          else{
+            setStatusWheater(false);
+          }
+          window.setTimeout(restRequest, refreshInterval);
+        }
+        catch (e) {
+          window.setTimeout(restRequest, refreshInterval);
+        }
+      };
+      xhr.send();
+    }
+
+    renderSmartHome();
+    function renderSmartHome(){
+      home = document.getElementById("home");
+      // calculate visible height of document
+      var h;
+      if(self.innerHeight)
+        h = window.innerHeight
+      else if(document.documentElement && document.documentElement.clientHeight)
+        h = document.documentElement.clientHeight;
+      else if(document.body)
+        h= document.body.clientHeight;
+      h = h - document.getElementById("head").offsetHeight - 20;
+      // set home dimensions
+      home.style.height = Math.floor(h/1.2) + "px" ;
+      home.style.width = window.innerWidth*0.65 + "px";
+    }
+
+    window.onresize = function(event) {
+        renderSmartHome();    
+    };
+
+    restRequest();
+
+    $.postJSON = function(url, data, callback) {
+        return jQuery.ajax({
+        headers: { 
+            'Accept': 'application/json',
+            'Content-Type': 'application/json' 
+        },
+        'type': 'POST',
+        'url': url,
+        'data': data,
+        'dataType': 'json',
+        'success': callback
+        });
+    };
+
+    function postJson(postfix, jsonData){
+      $.postJSON(postJsonUrl + "/" + postfix,jsonData, function()
+      {
+        
+      });
+    }
+
+    // set initial values
+    try{
+      postJson("tempIn",document.getElementById("tempSensorRangeInside").value);
+      postJson("tempOut",document.getElementById("tempSensorRangeOutside").value);
+      postJson("desiredTempIn",document.getElementById("desiredTempIn").value);
+      postJson("rain",document.getElementById("rainSensorCheckboxOutside").checked.toString());
+      postJson("sun",document.getElementById("sunSensorRangeOutside").value);
+    }
+    catch (e) {
+      null;
+    }
+    </script>
+  </body>
+</html>
+
+
