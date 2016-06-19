@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+	<featureModel>
+		<properties/>
+		<struct>
+			<and mandatory="true" name="SmartHomeSimulation">
+				<description>
+					
+				</description>
+				<and name="Core">
+					<description>
+						Root smart home simulation feature.
+					</description>
+					<or abstract="true" name="Sensors">
+						<description>
+							The connected sensors of the smart home.
+						</description>
+						<feature mandatory="true" name="Rain">
+							<description>
+								Sensor to detect rain and e.g. close windows.
+							</description>
+						</feature>
+						<feature mandatory="true" name="Sun">
+							<description>
+								Sensor to detect the power of the sun and e.g. shut down roller shutter.
+							</description>
+						</feature>
+						<or abstract="true" mandatory="true" name="Temperature">
+							<description>
+								Temperature sensors to optimize heating and air conditioning.
+							</description>
+							<feature mandatory="true" name="TemperaturInside">
+								<description>
+									Temperature sensor inside the house.
+								</description>
+							</feature>
+							<feature mandatory="true" name="TemperatureOutside">
+								<description>
+									Temperature sensor outside the house.
+								</description>
+							</feature>
+						</or>
+						<or abstract="true" mandatory="true" name="Motion">
+							<description>
+								Motion sensors e.g. to power on light.
+							</description>
+							<feature mandatory="true" name="MotionInside">
+								<description>
+									Motion sensor inside the house.
+								</description>
+							</feature>
+							<feature mandatory="true" name="MotionOutside">
+								<description>
+									Motion sensor outside the house.
+								</description>
+							</feature>
+						</or>
+					</or>
+					<or abstract="true" mandatory="true" name="Actors">
+						<description>
+							The connected actors of the smart home.
+						</description>
+						<or abstract="true" mandatory="true" name="Light">
+							<description>
+								Intelligent lights of the smart home.
+							</description>
+							<feature mandatory="true" name="LightInside">
+								<description>
+									Lights inside.
+								</description>
+							</feature>
+							<feature mandatory="true" name="LightOutside">
+								<description>
+									Lights outside.
+								</description>
+							</feature>
+						</or>
+						<feature mandatory="true" name="RollerShutter">
+							<description>
+								Roller shutter of the smart home.
+							</description>
+						</feature>
+						<feature mandatory="true" name="WindowOpener">
+							<description>
+								Automatic window opening actors.
+							</description>
+						</feature>
+						<feature mandatory="true" name="Heater">
+							<description>
+								Intelligent heating.
+							</description>
+						</feature>
+						<feature mandatory="true" name="AirConditioning">
+							<description>
+								Connected air conditioning of the smart home.
+							</description>
+						</feature>
+					</or>
+					<and abstract="true" mandatory="true" name="UserInterface">
+						<description>
+							The interfaces for the user of the smart home.
+						</description>
+						<or abstract="true" name="MobileApp">
+							<description>
+								Mobile application to control the smart home.
+							</description>
+							<feature mandatory="true" name="Android">
+								<description>
+									Android application.
+								</description>
+							</feature>
+							<feature mandatory="true" name="iOS">
+								<description>
+									iOs application.
+								</description>
+							</feature>
+							<feature mandatory="true" name="WindowsPhone">
+								<description>
+									Window phone application.
+								</description>
+							</feature>
+						</or>
+						<and abstract="true" mandatory="true" name="InHouse">
+							<description>
+								User interface inside the smart home.
+							</description>
+							<feature name="VoiceControl">
+								<description>
+									Voice control to control the smart home by voice.
+								</description>
+							</feature>
+							<feature mandatory="true" name="Terminal">
+								<description>
+									Terminal with touch screen to control the smart home.
+								</description>
+							</feature>
+						</and>
+					</and>
+				</and>
+			</and>
+		</struct>
+		<constraints/>
+		<calculations Auto="true" Constraints="true" Features="true" Redundant="true" Tautology="true"/>
+		<comments/>
+		<featureOrder userDefined="false"/>
+	</featureModel>
