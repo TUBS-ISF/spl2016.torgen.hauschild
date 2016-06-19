@@ -6,16 +6,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class SmartHomeState {
-	/*
-	//#if Sun
-	private Integer sun;
-	//#endif
-	//#if RollerShutter
-	private Shutter shutter;
-	//#endif
-	//#if WindowOpener
-//@	private Window window;
-	//#endif*/
 	
 	private List<String> aktiveFeatures;
 
@@ -26,15 +16,6 @@ public class SmartHomeState {
 	
 	public void buildFeatures(){
 		this.aktiveFeatures = new ArrayList<String>();
-/*	
-		this.shutter = new Shutter();
-		//#if Sun
-		this.aktiveFeatures.add("sun");
-		//#endif
-		//#if RollerShutter
-		this.aktiveFeatures.add("shutter");
-		//#endif
-		*/
 	}
 	
 	public void setDesiredTempInside(Integer temp){
@@ -61,28 +42,9 @@ public class SmartHomeState {
 		
 	}
 	
-/*	
-
-	//#endif
-	//#if Sun
-	public Integer getSun() {
-		return sun;
+	public void onSetSun(Integer sun){
+		
 	}
-
-	public void setSun(Integer sun) {
-		this.sun = sun;
-	}
-	//#endif
-	//#if RollerShutter
-	public Shutter getShutter() {
-		return shutter;
-	}
-
-	public void setShutter(Shutter shutter) {
-		this.shutter = shutter;
-	}
-	//#endif
-*/
 
 	public List<String> getAktiveFeatures() {
 		return aktiveFeatures;

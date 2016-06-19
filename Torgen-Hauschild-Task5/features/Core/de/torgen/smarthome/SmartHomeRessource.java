@@ -42,9 +42,6 @@ public class SmartHomeRessource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public void motionIndoorDetected() {
 		e.onMotionInside();
-		//#if LightOutside
-//@		e.getLightIndoor().onMotionDetected();
-		//#endif
 	}
 	
 	@POST
@@ -53,9 +50,6 @@ public class SmartHomeRessource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public void motionOutdoorDetected() {
 		e.onMotionOutside();
-		//#if LightOutside
-//@		e.getLightOutdoor().onMotionDetected();
-		//#endif
 	}
 	
 	@POST
@@ -64,20 +58,6 @@ public class SmartHomeRessource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public void tmpInMeasured(Integer measuredTemp) {
 		e.setTempInside(measuredTemp);
-		//#if Heater
-//@		e.getHeating().setMeasuredTemp(measuredTemp);
-		//#endif
-		//#if TemperaturInside
-//@		e.setTempIn(measuredTemp);
-		//#endif
-		//#if AirConditioning
-//@		e.getAirConditioning().setMeasuredTemp(measuredTemp);
-		//#endif
-		//#if WindowOpener
-		//#if TemperaturInside
-//@		e.getWindow().setTempIn(measuredTemp);
-		//#endif
-		//#endif
 	}
 	
 	@POST
@@ -86,14 +66,6 @@ public class SmartHomeRessource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public void tmpOutMeasured(Integer measuredTemp) {
 		e.setTempOutside(measuredTemp);
-		//#if TemperatureOutside
-//@		e.setTempOut(measuredTemp);
-		//#endif
-		//#if WindowOpener
-		//#if TemperatureOutside
-//@		e.getWindow().setTempOut(measuredTemp);
-		//#endif
-		//#endif
 	}
 	
 	@POST
@@ -101,17 +73,7 @@ public class SmartHomeRessource {
 	@Path("desiredTempIn")
 	@Produces(MediaType.APPLICATION_JSON)
 	public void desiredTempInChanged(Integer desiredTemp) {
-		System.out.println("desired tmp: " + desiredTemp);
 		e.setDesiredTempInside(desiredTemp);
-		//#if Heater
-//@		e.getHeating().setDesiredTemp(desiredTemp);
-		//#endif
-		//#if AirConditioning
-//@		e.getAirConditioning().setDesiredTemp(desiredTemp);
-		//#endif
-		//#if WindowOpener
-//@		e.getWindow().setDesiredTempIn(desiredTemp);
-		//#endif
 	}
 	
 	@POST
@@ -127,11 +89,6 @@ public class SmartHomeRessource {
 	@Path("sun")
 	@Produces(MediaType.APPLICATION_JSON)
 	public void sun(Integer sun) {
-		/*//#if Sun
-		e.setSun(sun);
-		//#endif
-		//#if RollerShutter
-		e.getShutter().setSun(sun);
-		//#endif*/
+		e.onSetSun(sun);
 	}
 }

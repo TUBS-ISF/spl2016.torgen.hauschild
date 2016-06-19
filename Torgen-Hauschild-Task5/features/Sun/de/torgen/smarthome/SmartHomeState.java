@@ -6,24 +6,23 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class SmartHomeState {
-	private Shutter shutter;
+	private Integer sun;
 	
 	public void buildFeatures(){
 		original();
-		this.shutter = new Shutter();
-		this.aktiveFeatures.add("shutter");
+		this.aktiveFeatures.add("sun");
 	}
 	
 	public void onSetSun(Integer sun){
 		original(sun);
-		shutter.setSun(sun);
+		this.sun = sun;
 	}
 	
-	public Shutter getShutter() {
-		return shutter;
+	public Integer getSun() {
+		return sun;
 	}
 
-	public void setShutter(Shutter shutter) {
-		this.shutter = shutter;
+	public void setSun(Integer sun) {
+		this.sun = sun;
 	}
 }
