@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class SmartHomeState {
 	
-	private List<String> aktiveFeatures;
+	public List<String> aktiveFeatures;
 
 	public SmartHomeState() {
 		super();
@@ -16,6 +16,9 @@ public class SmartHomeState {
 	
 	public void buildFeatures(){
 		this.aktiveFeatures = new ArrayList<String>();
+		System.out.println("------------------------------------ buildFeatures");
+		System.out.println("------------------------------------ buildFeatures");
+		System.out.println("------------------------------------ buildFeatures");
 	}
 	
 	public void setDesiredTempInside(Integer temp){

@@ -12,7 +12,6 @@ import javax.servlet.FilterRegistration;
 
 import org.eclipse.jetty.servlets.CrossOriginFilter;
 
-import de.torgen.smarthome.Light.State;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Environment;
 

@@ -85,7 +85,7 @@
 							Intelligent heating.
 						</description>
 					</feature>
-					<feature mandatory="true" name="AirConditioning">
+					<feature mandatory="true" name="AirConditioningF">
 						<description>
 							Connected air conditioning of the smart home.
 						</description>
@@ -138,4 +138,3 @@
 		<comments/>
 		<featureOrder userDefined="false"/>
 	</featureModel>
- 
